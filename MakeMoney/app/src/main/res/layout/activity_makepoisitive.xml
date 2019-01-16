@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MakePositiveActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        >
+
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:hint="금액(만원)"
+            android:textColorHint="@color/WHITE"
+            android:inputType="number"
+            android:background="@color/BLACK"
+            android:textColor="@color/WHITE"
+            android:id="@+id/costText"/>
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:hint="금액(천원)(1~9)"
+            android:textColorHint="@color/WHITE"
+            android:inputType="number"
+            android:textColor="@color/WHITE"
+            android:background="@color/BLACK"
+            android:id="@+id/costText2"/>
+        <Button
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="40dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:textColor="@color/WHITE"
+            android:background="@color/BLACK"
+            android:text="설정"
+            android:id="@+id/setButton"
+            />
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

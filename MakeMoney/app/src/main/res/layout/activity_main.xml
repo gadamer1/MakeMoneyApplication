@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="목표금액설정"
+            android:layout_marginBottom="0dp"
+            android:textColor="@color/WHITE"
+            android:background="@color/BLACK"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onClickGoalListener"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/goalMoney"
+            />
+
+    <TextView
+        android:id="@+id/goalProduct"
+        android:text="내가 사고싶은 것"
+        android:layout_marginBottom="0dp"
+        android:textColor="@color/BLACK"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/goalMoney"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="50dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:clickable="true"
+        android:onClick="onClickGoalPruductListener"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="horizontal"
+       android:background="@color/colorPrimary"
+       android:layout_marginTop="100dp"
+       android:id="@+id/mainLayout"
+       >
+    <LinearLayout
+        android:layout_weight="2"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:background="@color/WHITE"
+        android:id="@+id/greenLayout"
+        android:orientation="vertical"
+        >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#000000"
+            android:text="추가"
+            android:textColor="#FFFFFF"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/positiveSetButton"/>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/positiveList"
+            android:clickable="false"
+            android:stackFromBottom="false"
+            android:choiceMode="multipleChoice"
+            ></ListView>
+    </LinearLayout>
+       <LinearLayout
+           android:layout_width="100dp"
+           android:layout_height="match_parent"
+           android:layout_weight="2"
+           android:layout_marginBottom="50dp"
+           android:background="@color/BLACK"
+           android:id="@+id/redLayout"
+           android:orientation="vertical"
+           >
+           <Button
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               android:background="#FFFFFF"
+               android:text="추가"
+               android:textColor="#000000"
+               android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+               android:id="@+id/negativeSetButton"/>
+           <ListView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:id="@+id/negativeList"
+               android:stackFromBottom="false"
+               ></ListView>
+       </LinearLayout>
+
+   </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/showLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/mySaveMoney"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/WHITE"
+            android:textColor="@color/BLACK"
+            android:gravity="center"
+            android:text="모은 돈"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+        <TextView
+            android:id="@+id/myPayMoney"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/BLACK"
+            android:textColor="@color/WHITE"
+            android:gravity="center"
+            android:text="쓴 돈"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+    </LinearLayout>
+
+</RelativeLayout>
