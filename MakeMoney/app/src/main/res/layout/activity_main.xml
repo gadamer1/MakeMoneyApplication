@@ -19,6 +19,7 @@
             android:onClick="onClickGoalListener"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:id="@+id/goalMoney"
+            android:autoSizeTextType="uniform"
             />
 
     <TextView
@@ -38,7 +39,10 @@
         android:gravity="center"
         android:clickable="true"
         android:onClick="onClickGoalPruductListener"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:autoSizeTextType="uniform"
+
+        />
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent"
@@ -62,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="#000000"
-            android:text="추가"
+            android:text="수익추가"
             android:textColor="#FFFFFF"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:id="@+id/positiveSetButton"/>
@@ -89,7 +93,7 @@
                android:layout_height="wrap_content"
                android:layout_gravity="center"
                android:background="#FFFFFF"
-               android:text="추가"
+               android:text="지출추가"
                android:textColor="#000000"
                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                android:id="@+id/negativeSetButton"/>
@@ -124,7 +128,10 @@
             android:textColor="@color/BLACK"
             android:gravity="center"
             android:text="모은 돈"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:autoSizeTextType="uniform"
+
+            />
 
         <TextView
             android:id="@+id/myPayMoney"
@@ -135,7 +142,10 @@
             android:textColor="@color/WHITE"
             android:gravity="center"
             android:text="쓴 돈"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:autoSizeTextType="uniform"
+
+            />
 
     </LinearLayout>
 

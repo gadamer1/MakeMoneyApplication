@@ -6,8 +6,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,10 +19,12 @@ public class MainActivity extends AppCompatActivity {
     private ListViewNegativeAdapter listViewNegativeAdapter;
     private TextView goalMoney;
     private static int showGoalMoney;
+    private int showMyMoney;
     private Values values;
     private TextView goalProduct;
     private TextView mySaveMoney;
     private TextView myPayMoney;
+    private Spinner spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         values = new Values();
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         goalProduct = (TextView) findViewById(R.id.goalProduct);
         myPayMoney = (TextView) findViewById(R.id.myPayMoney);
         mySaveMoney = (TextView) findViewById(R.id.mySaveMoney);
+        spinner = (Spinner) findViewById(R.id.spinner);
 
         positiveSetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent,2);
             }
         });
+        positiveListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            }
+        });
+
+
     }
 
     @Override
@@ -60,52 +72,105 @@ public class MainActivity extends AppCompatActivity {
 
         if(requestCode == 1){
             if(resultCode == RESULT_OK){
-                positiveListView.setAdapter((ListViewPoisitiveAdapter)data.getSerializableExtra("a"));
-                showGoalMoney= Values.getGoalMoney()+Values.getMinusMoney()-Values.getPlusMoney();
-                if(showGoalMoney<=0){
-                    goalMoney.setText("목표 달성!!!! 치킨먹는날!");
-                    mySaveMoney.setText(""+Values.getPlusMoney()+"만"+Values.plusMoney2+"천원");
+                if(Values.getFrequencyIncome_m()>0&&Values.getFrequencyIncome_y()>0) {
+                    positiveListView.setAdapter((ListViewPoisitiveAdapter) data.getSerializableExtra("a"));
+                    showMyMoney= Values.getPlusMoney()-Values.getMinusMoney();
+                    showGoalMoney = Values.getGoalMoney()-Values.getPlusMoney()+Values.getMinusMoney();
+                    int residue = (Values.getGoalMoney() - showGoalMoney) / (Values.getFrequencyIncome2_m()
+                            + Values.getFrequencyIncome2_y() / 12);
+                    if (showGoalMoney <= 0) {
+                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만"+"대략"+residue+"월 이후 달성");
+                        mySaveMoney.setText("" + Values.getPlusMoney() + "만" + Values.plusMoney2 + "천원");
+                    } else if (showGoalMoney < 14) {
+                        goalMoney.setText("목표:" + Values.getGoalMoney() + "만 모은돈:" + showMyMoney + "만원" + "대략" + residue + "월 이후 달성");
+                        mySaveMoney.setText("" + Values.getPlusMoney() + "만" + Values.plusMoney2 + "천원");
+                    } else if (showGoalMoney < 40) {
+                        goalMoney.setText("목표:" + Values.getGoalMoney() + "만 모은돈:" + showMyMoney + "만원" + "대략" + residue + "월 이후 달성");
+                        mySaveMoney.setText("" + Values.getPlusMoney() + "만" + Values.plusMoney2 + "천원");
+                    } else {
+                        goalMoney.setText("목표:" + Values.getGoalMoney() + "만 모은돈:" + showMyMoney + "만원" + "대략" + residue + "월 이후 달성");
+                        mySaveMoney.setText("총수익" + "" + Values.getPlusMoney() + "만" + Values.plusMoney2 + "천원\n"
+                                + "월수익:" + Values.getFrequencyIncome_m() + "만" + Values.getFrequencyIncome2_m() + "천원\n"
+                                + "연수익:" + Values.getFrequencyIncome_y() + "만" + Values.getFrequencyIncome2_y() + "천원");
+                    }
                 }
-                else if(showGoalMoney<14){
-                    goalMoney.setText("조금만더." + showGoalMoney + "만원");
-                    mySaveMoney.setText(""+Values.getPlusMoney()+"만"+Values.plusMoney2+"천원");
-                }
-                else if(showGoalMoney<40){
-                    goalMoney.setText("힘내자,남은돈" + showGoalMoney + "만원!!!");
-                    mySaveMoney.setText(""+Values.getPlusMoney()+"만"+Values.plusMoney2+"천원");
-                }
-                else {
-                    goalMoney.setText("목표까지" + showGoalMoney + "만원!!!");
-                    mySaveMoney.setText(""+Values.getPlusMoney()+"만"+Values.plusMoney2+"천원");
+                else{
+                    positiveListView.setAdapter((ListViewPoisitiveAdapter) data.getSerializableExtra("a"));
+                    showMyMoney= Values.getPlusMoney()-Values.getMinusMoney();
+                    showGoalMoney = Values.getGoalMoney()-Values.getPlusMoney()+Values.getMinusMoney();
+                    if (showGoalMoney <= 0) {
+                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만");
+                        mySaveMoney.setText("" + Values.getPlusMoney() + "만" + Values.plusMoney2 + "천원");
+                    } else if (showGoalMoney < 14) {
+                        goalMoney.setText("목표:" + Values.getGoalMoney() + "만 모은돈:" + showMyMoney + "만원" );
+                        mySaveMoney.setText("" + Values.getPlusMoney() + "만" + Values.plusMoney2 + "천원");
+                    } else if (showGoalMoney < 40) {
+                        goalMoney.setText("목표:" + Values.getGoalMoney() + "만 모은돈:" + showMyMoney + "만원" );
+                        mySaveMoney.setText("" + Values.getPlusMoney() + "만" + Values.plusMoney2 + "천원");
+                    } else {
+                        goalMoney.setText("목표:" + Values.getGoalMoney() + "만 모은돈:" + showMyMoney + "만원" );
+                        mySaveMoney.setText("총수익" + "" + Values.getPlusMoney() + "만" + Values.plusMoney2 + "천원\n"
+                                + "월수익:" + Values.getFrequencyIncome_m() + "만" + Values.getFrequencyIncome2_m() + "천원\n"
+                                + "연수익:" + Values.getFrequencyIncome_y() + "만" + Values.getFrequencyIncome2_y() + "천원");
+                    }
                 }
             }
         }
         else if(requestCode==2){
             if (resultCode == RESULT_OK) {
-                negativeListView.setAdapter((ListViewNegativeAdapter)data.getSerializableExtra("b"));
-                showGoalMoney= Values.getGoalMoney()+Values.getMinusMoney()-Values.getPlusMoney();
-                if(showGoalMoney<=0){
-                    goalMoney.setText("노력하는 당신");
-                    myPayMoney.setText(""+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
+                int residue;
+                if(Values.getFrequencyIncome_m()>0&&Values.getFrequencyIncome_y()>0) {
+                    residue = (Values.getGoalMoney() - showGoalMoney) / (Values.getFrequencyIncome_m()
+                            + Values.getFrequencyIncome_y() / 12);
+                    negativeListView.setAdapter((ListViewNegativeAdapter)data.getSerializableExtra("b"));
+                    showMyMoney= Values.getPlusMoney()-Values.getMinusMoney();
+                    showGoalMoney = Values.getGoalMoney()-Values.getPlusMoney()+Values.getMinusMoney();
+                    if(showGoalMoney<=0){
+                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만"+"대략"+residue+"월 이후 달성");
+                        myPayMoney.setText("-"+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
+                    }
+                    else if(showGoalMoney<14){
+                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만"+"대략"+residue+"월 이후 달성");
+                        myPayMoney.setText("-"+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
+                    }
+                    else if(showGoalMoney<40){
+                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만"+"대략"+residue+"월 이후 달성");
+                        myPayMoney.setText("-"+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
+                    }
+                    else {
+                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만"+"대략"+residue+"월 이후 달성");
+                        myPayMoney.setText("총소비:"+"-"+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
+                    }
                 }
-                else if(showGoalMoney<14){
-                    goalMoney.setText("이제 곧!" + showGoalMoney + "만원");
-                    myPayMoney.setText(""+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
+                else{
+                    negativeListView.setAdapter((ListViewNegativeAdapter)data.getSerializableExtra("b"));
+                    showMyMoney= Values.getPlusMoney()-Values.getMinusMoney();
+                    showGoalMoney = Values.getGoalMoney()-Values.getPlusMoney()+Values.getMinusMoney();
+                    if(showGoalMoney<=0){
+                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만");
+                        myPayMoney.setText("-"+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
+                    }
+                    else if(showGoalMoney<14){
+                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만");
+                        myPayMoney.setText("-"+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
+                    }
+                    else if(showGoalMoney<40){
+                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만");
+                        myPayMoney.setText("-"+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
+                    }
+                    else {
+                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만");
+                        myPayMoney.setText("총소비:"+"-"+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
+                    }
                 }
-                else if(showGoalMoney<40){
-                    goalMoney.setText("할수있다" + showGoalMoney + "만원!!!");
-                    myPayMoney.setText(""+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
-                }
-                else {
-                    goalMoney.setText("목표까지" + showGoalMoney + "만원!!!");
-                    myPayMoney.setText(""+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
-                }
+
             }
         }
         else if (requestCode==300){
             if(resultCode==RESULT_OK){
-                showGoalMoney= Values.getGoalMoney()+Values.getMinusMoney()-Values.getPlusMoney();
-                goalMoney.setText("목표까지"+showGoalMoney+"만원!");            }
+                showMyMoney= Values.getPlusMoney()-Values.getMinusMoney();
+                goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만원");
+            }
         }
         else if (requestCode==400){
             if(resultCode==RESULT_OK){

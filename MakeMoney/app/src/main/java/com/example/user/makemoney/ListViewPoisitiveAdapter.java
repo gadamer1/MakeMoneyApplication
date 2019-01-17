@@ -45,21 +45,23 @@ public class ListViewPoisitiveAdapter extends BaseAdapter implements Serializabl
         //화면에 표시될 view(layout이 inflate된)으로부터 위젯에 대한 참조 획득
         TextView costText = (TextView) convertView.findViewById(R.id.costText);
         TextView costText2 = (TextView) convertView.findViewById(R.id.costText2);
-
+        TextView memo = (TextView) convertView.findViewById(R.id.memo);
         //data set(listviewitems)에서 position에 위치한 데이터 참조 획득
         ListViewItem listViewItem = listViewItems.get(pos);
 
         //아이템 내 각 위젯에 데이터 반영
         costText.setText(""+listViewItem.getCost());
         costText2.setText(""+listViewItem.getCost2());
+        memo.setText(listViewItem.getMemo());
         return convertView;
     }
 
 
-    public void addItem(int cost,int cost2){
+    public void addItem(int cost,int cost2,String memo){
         ListViewItem item = new ListViewItem();
         item.setCost(cost);
         item.setCost2(cost2);
+        item.setMemo(memo);
         listViewItems.add(item);
     }
 

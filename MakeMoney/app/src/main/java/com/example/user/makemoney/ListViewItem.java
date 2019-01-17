@@ -5,6 +5,16 @@ import java.io.Serializable;
 public class ListViewItem implements Serializable {
     private int cost;
     private int cost2;
+    private String memo;
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
     public int getCost2() {
         return cost2;
     }

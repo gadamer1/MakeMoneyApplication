@@ -33,6 +33,14 @@
             android:background="@color/WHITE"
             android:inputType="number"
             android:id="@+id/costText2"/>
+        <Spinner
+            android:layout_marginTop="30dp"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:id="@+id/spinner"
+            android:background="@color/WHITE"
+            ></Spinner>
         <Button
             android:layout_marginTop="50dp"
             android:layout_marginBottom="40dp"

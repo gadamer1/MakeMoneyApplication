@@ -4,13 +4,17 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MakePositiveActivity extends AppCompatActivity {
     ListViewPoisitiveAdapter listViewPoisitiveAdapter;
+    private String memo ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +23,21 @@ public class MakePositiveActivity extends AppCompatActivity {
         final EditText costText = (EditText) findViewById(R.id.costText);
         final EditText costText2 = (EditText) findViewById(R.id.costText2);
         Button setButton = (Button) findViewById(R.id.setButton);
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter p_adpater = ArrayAdapter.createFromResource(this,R.array.p_spinner,android.R.layout.simple_spinner_item);
+        p_adpater.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(p_adpater);
 
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               memo= (String) parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         setButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,11 +55,18 @@ public class MakePositiveActivity extends AppCompatActivity {
                     if (listViewPoisitiveAdapter == null)
                         listViewPoisitiveAdapter = (ListViewPoisitiveAdapter) intent.getSerializableExtra("listviewadapter2");
                     Intent intent1 = new Intent();
-                    listViewPoisitiveAdapter.addItem(Integer.parseInt(costText.getText().toString()), Integer.parseInt(costText2.getText().toString()));
+                    listViewPoisitiveAdapter.addItem(Integer.parseInt(costText.getText().toString()), Integer.parseInt(costText2.getText().toString()),memo);
                     intent1.putExtra("a", listViewPoisitiveAdapter);
-                    Values.setPlusMoney(Values.getPlusMoney()+Integer.parseInt(costText.getText().toString())
+                    Values.setPlusMoney(Integer.parseInt(costText.getText().toString())
                                              ,Integer.parseInt(costText2.getText().toString()));
-
+                    if(memo=="정기(월)") {
+                        Values.setFrequencyIncome_m(Integer.parseInt(costText.getText().toString()), Integer.parseInt(costText2.getText().toString()));
+                    }else if(memo=="정기(년)") {
+                        Values.setFrequencyIncome_y(Integer.parseInt(costText.getText().toString()), Integer.parseInt(costText2.getText().toString()));
+                    }
+                    else if(memo =="비정기"){
+                        Values.setNonFrequencyIncome(Integer.parseInt(costText.getText().toString()),Integer.parseInt(costText2.getText().toString()));
+                    }
                     setResult(RESULT_OK, intent1);
                     finish();
                 }
