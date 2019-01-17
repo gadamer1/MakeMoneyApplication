@@ -26,15 +26,16 @@ public class MakeNegativeActivity extends AppCompatActivity {
         final EditText costText = (EditText) findViewById(R.id.costText);
         final EditText costText2 = (EditText) findViewById(R.id.costText2);
         Button setButton = (Button) findViewById(R.id.setButton);
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter p_adpater = ArrayAdapter.createFromResource(this,R.array.n_spinner,android.R.layout.simple_spinner_item);
         p_adpater.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(p_adpater);
-
+        memo = "식사";
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                memo= (String) parent.getItemAtPosition(position);
+                Spinner spinner1 = (Spinner) parent;
+                memo= (String) spinner1.getItemAtPosition(position);
             }
 
             @Override

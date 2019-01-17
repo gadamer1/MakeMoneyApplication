@@ -27,11 +27,12 @@ public class MakePositiveActivity extends AppCompatActivity {
         ArrayAdapter p_adpater = ArrayAdapter.createFromResource(this,R.array.p_spinner,android.R.layout.simple_spinner_item);
         p_adpater.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(p_adpater);
-
+        memo="정기(월)";
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               memo= (String) parent.getItemAtPosition(position);
+               Spinner spinner1 = (Spinner) parent;
+               memo= (String) spinner1.getItemAtPosition(position);
             }
 
             @Override
