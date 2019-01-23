@@ -2,6 +2,7 @@ package com.example.user.makemoney;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,12 +61,113 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent,2);
             }
         });
+
+
+        /////////////////리스트 삭제//////////////////////
         positiveListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                builder.setTitle("알림")
+                        .setMessage("리스트를 삭제하겠습니까?")
+                        .setCancelable(true)
+                        .setPositiveButton("네", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Values.setPlusMoney(-ListViewPoisitiveAdapter.getListViewItems().get(position).getCost(),
+                                        -ListViewPoisitiveAdapter.getListViewItems().get(position).getCost2());
+                                if(ListViewPoisitiveAdapter.getListViewItems().get(position).getMemo().equals("기본수입")){
+                                    Values.setShowMyIncome(-ListViewPoisitiveAdapter.getListViewItems().get(position).getCost(),
+                                            -ListViewPoisitiveAdapter.getListViewItems().get(position).getCost2());
+                                }else if(ListViewPoisitiveAdapter.getListViewItems().get(position).getMemo().equals("정기(월)")){
+                                    Values.setFrequencyIncome_m(-ListViewPoisitiveAdapter.getListViewItems().get(position).getCost(),
+                                            -ListViewPoisitiveAdapter.getListViewItems().get(position).getCost2());
+                                }else if(ListViewPoisitiveAdapter.getListViewItems().get(position).getMemo().equals("정기(년)")){
+                                    Values.setFrequencyIncome_y(-ListViewPoisitiveAdapter.getListViewItems().get(position).getCost(),
+                                            -ListViewPoisitiveAdapter.getListViewItems().get(position).getCost2());
+                                }else if(ListViewPoisitiveAdapter.getListViewItems().get(position).getMemo().equals("비정기")){
+                                    Values.setNonFrequencyIncome(-ListViewPoisitiveAdapter.getListViewItems().get(position).getCost(),
+                                            -ListViewPoisitiveAdapter.getListViewItems().get(position).getCost2());
+                                }
+                                listViewNegativeAdapter.remove(position);
+                                listViewNegativeAdapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                listViewPoisitiveAdapter.notifyDataSetChanged();
+                                dialog.cancel();
+                            }
+                        });
+                final AlertDialog alertDialog = builder.create();
+                alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+                        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+                        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+                    }
+                });
+                alertDialog.show();
             }
+
         });
 
+        negativeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                builder.setTitle("알림")
+                        .setMessage("리스트를 삭제하겠습니까?")
+                        .setCancelable(true)
+                        .setPositiveButton("네", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Values.setMinusMoney(-ListViewNegativeAdapter.getListViewItems().get(position).getCost(),
+                                        -ListViewNegativeAdapter.getListViewItems().get(position).getCost2());
+                                if(ListViewNegativeAdapter.getListViewItems().get(position).getMemo().equals("식사")){
+                                    Values.setEat(-ListViewNegativeAdapter.getListViewItems().get(position).getCost(),
+                                            -ListViewNegativeAdapter.getListViewItems().get(position).getCost2());
+                                }else if(ListViewNegativeAdapter.getListViewItems().get(position).getMemo().equals("의류")){
+                                    Values.setClothes(-ListViewNegativeAdapter.getListViewItems().get(position).getCost(),
+                                            -ListViewNegativeAdapter.getListViewItems().get(position).getCost2());
+                                }else if(ListViewNegativeAdapter.getListViewItems().get(position).getMemo().equals("디저트")){
+                                    Values.setDessert(-ListViewNegativeAdapter.getListViewItems().get(position).getCost(),
+                                            -ListViewNegativeAdapter.getListViewItems().get(position).getCost2());
+                                }else if(ListViewNegativeAdapter.getListViewItems().get(position).getMemo().equals("기본지출(보험비등)")){
+                                Values.setEtc(-ListViewNegativeAdapter.getListViewItems().get(position).getCost(),
+                                        -ListViewNegativeAdapter.getListViewItems().get(position).getCost2());
+                                 }else if(ListViewNegativeAdapter.getListViewItems().get(position).getMemo().equals("주거비")){
+                                    Values.setHousing_expenses(-ListViewNegativeAdapter.getListViewItems().get(position).getCost(),
+                                            -ListViewNegativeAdapter.getListViewItems().get(position).getCost2());
+                                }else if(ListViewNegativeAdapter.getListViewItems().get(position).getMemo().equals("기타생활비")){
+                                    Values.setEtc_living_expenses(-ListViewNegativeAdapter.getListViewItems().get(position).getCost(),
+                                            -ListViewNegativeAdapter.getListViewItems().get(position).getCost2());
+                                }
+                                listViewNegativeAdapter.remove(position);
+                                listViewNegativeAdapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                final AlertDialog alertDialog = builder.create();
+                alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+                        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+                        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+                    }
+                });
+                alertDialog.show();
+            }
+
+        });
 
     }
 
@@ -78,26 +180,26 @@ public class MainActivity extends AppCompatActivity {
                     positiveListView.setAdapter((ListViewPoisitiveAdapter) data.getSerializableExtra("a"));
                     showMyMoney= Values.getPlusMoney()-Values.getMinusMoney();
                     showGoalMoney = Values.getGoalMoney()-Values.getPlusMoney()+Values.getMinusMoney();
-                    int residue = (Values.getGoalMoney() - showGoalMoney) / (Values.getFrequencyIncome2_m()
-                            + Values.getFrequencyIncome2_y() / 12);
+                    int residue = (showGoalMoney) / (Values.getFrequencyIncome_m()
+                            + Values.getFrequencyIncome_y() / 12);
                     if (showGoalMoney <= 0) {
-                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만"+"대략"+residue+"월 이후 달성");
+                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만");
                         mySaveMoney.setText("총수익:"+ Values.getPlusMoney() + "만" + Values.plusMoney2 + "천원");
-                        showRemainTime.setText("대략"+residue+"월 이후 달성");
+                        showRemainTime.setText("대략"+residue+"개월 이후 달성");
                     } else if (showGoalMoney < 14) {
-                        goalMoney.setText("목표:" + Values.getGoalMoney() + "만 모은돈:" + showMyMoney + "만원" + "대략" + residue + "월 이후 달성");
+                        goalMoney.setText("목표:" + Values.getGoalMoney() + "만 모은돈:" + showMyMoney + "만원");
                         mySaveMoney.setText("총수익:"+ Values.getPlusMoney() + "만" + Values.plusMoney2 + "천원");
-                        showRemainTime.setText("대략"+residue+"월 이후 달성");
+                        showRemainTime.setText("대략"+residue+"개월 이후 달성");
 
                     } else if (showGoalMoney < 40) {
-                        goalMoney.setText("목표:" + Values.getGoalMoney() + "만 모은돈:" + showMyMoney + "만원" + "대략" + residue + "월 이후 달성");
+                        goalMoney.setText("목표:" + Values.getGoalMoney() + "만 모은돈:" + showMyMoney + "만원");
                         mySaveMoney.setText("총수익:"+ Values.getPlusMoney() + "만" + Values.plusMoney2 + "천원");
-                        showRemainTime.setText("대략"+residue+"월 이후 달성");
+                        showRemainTime.setText("대략"+residue+"개월 이후 달성");
 
                     } else {
-                        goalMoney.setText("목표:" + Values.getGoalMoney() + "만 모은돈:" + showMyMoney + "만원" + "대략" + residue + "월 이후 달성");
+                        goalMoney.setText("목표:" + Values.getGoalMoney() + "만 모은돈:" + showMyMoney + "만원");
                         mySaveMoney.setText("총수익" + "" + Values.getPlusMoney() + "만" + Values.plusMoney2 + "천원");
-                        showRemainTime.setText("대략"+residue+"월 이후 달성");
+                        showRemainTime.setText("대략"+residue+"개월 이후 달성");
 
                     }
                 }
@@ -124,34 +226,34 @@ public class MainActivity extends AppCompatActivity {
         else if(requestCode==2){
             if (resultCode == RESULT_OK) {
                 int residue;
-                if(Values.getFrequencyIncome_m()>0&&Values.getFrequencyIncome_y()>0) {
-                    residue = (Values.getGoalMoney() - showGoalMoney) / (Values.getFrequencyIncome_m()
-                            + Values.getFrequencyIncome_y() / 12);
+                if(Values.getFrequencyIncome_m()>0||Values.getFrequencyIncome_y()>0) {
                     negativeListView.setAdapter((ListViewNegativeAdapter)data.getSerializableExtra("b"));
                     showMyMoney= Values.getPlusMoney()-Values.getMinusMoney();
                     showGoalMoney = Values.getGoalMoney()-Values.getPlusMoney()+Values.getMinusMoney();
+                    residue = (showGoalMoney) / (Values.getFrequencyIncome_m()
+                            + Values.getFrequencyIncome_y() / 12);
                     if(showGoalMoney<=0){
-                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만"+"대략"+residue+"월 이후 달성");
+                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만");
                         myPayMoney.setText("총소비:"+"-"+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
-                        showRemainTime.setText("대략"+residue+"월 이후 달성");
+                        showRemainTime.setText("대략"+residue+"개월 이후 달성");
 
                     }
                     else if(showGoalMoney<14){
-                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만"+"대략"+residue+"월 이후 달성");
+                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만");
                         myPayMoney.setText("총소비:"+"-"+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
-                        showRemainTime.setText("대략"+residue+"월 이후 달성");
+                        showRemainTime.setText("대략"+residue+"개월 이후 달성");
 
                     }
                     else if(showGoalMoney<40){
-                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만"+"대략"+residue+"월 이후 달성");
+                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만");
                         myPayMoney.setText("총소비:"+"-"+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
-                        showRemainTime.setText("대략"+residue+"월 이후 달성");
+                        showRemainTime.setText("대략"+residue+"개월 이후 달성");
 
                     }
                     else {
-                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만"+"대략"+residue+"월 이후 달성");
+                        goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만");
                         myPayMoney.setText("총소비:"+"-"+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
-                        showRemainTime.setText("대략"+residue+"월 이후 달성");
+                        showRemainTime.setText("대략"+residue+"개월 이후 달성");
                     }
                 }
                 else{
@@ -211,8 +313,15 @@ public class MainActivity extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        final AlertDialog alertDialog = builder.create();
+       alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+           @Override
+           public void onShow(DialogInterface dialog) {
+               alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+               alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+           }
+       });
+       alertDialog.show();
     }
 
     protected void onClickGoalPruductListener(View v){
@@ -233,8 +342,15 @@ public class MainActivity extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+            }
+        });
+        alertDialog.show();
 
     }
 
@@ -257,8 +373,15 @@ public class MainActivity extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+            }
+        });
+        alertDialog.show();
     }
 
     protected void onClickShowMyPay(View v){
@@ -279,7 +402,14 @@ public class MainActivity extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+            }
+        });
+        alertDialog.show();
     }
 }

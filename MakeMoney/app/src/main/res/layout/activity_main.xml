@@ -38,16 +38,20 @@
             android:layout_weight="2"
             android:clickable="true"
             android:onClick="onClickGoalPruductListener"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:autoSizeTextType="uniform"
             />
         <TextView
+            android:layout_gravity="center"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
+            android:layout_marginBottom="0dp"
             android:text="목표달성까지 얼마나남았니"
             android:textColor="@color/BLACK"
             android:autoSizeTextType="uniform"
             android:id="@+id/showRemainTime"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             />
     </LinearLayout>
    <LinearLayout
@@ -84,6 +88,7 @@
             android:clickable="false"
             android:stackFromBottom="false"
             android:choiceMode="multipleChoice"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             ></ListView>
     </LinearLayout>
        <LinearLayout
@@ -109,6 +114,7 @@
                android:layout_height="match_parent"
                android:id="@+id/negativeList"
                android:stackFromBottom="false"
+
                ></ListView>
        </LinearLayout>
 

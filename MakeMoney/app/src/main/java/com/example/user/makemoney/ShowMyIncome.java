@@ -15,8 +15,11 @@ public class ShowMyIncome extends AppCompatActivity {
         TextView showMonthIncome= (TextView) findViewById(R.id.showMonthIncome);
         TextView showYearIncome = (TextView) findViewById(R.id.showYearIncome);
         TextView showComplexIncome = (TextView) findViewById(R.id.showComplexIncome);
+        TextView showMyIncome = (TextView) findViewById(R.id.showMyIncome);
 
-        showMonthIncome.setText(""+Values.getFrequencyIncome2_m()+"만"+Values.getFrequencyIncome2_m()+"천원");
+
+        showMyIncome.setText(""+Values.getShowMyIncome()+"만"+Values.getShowMyIncome2()+"천원");
+        showMonthIncome.setText(""+Values.getFrequencyIncome_m()+"만"+Values.getFrequencyIncome2_m()+"천원");
         showYearIncome.setText(""+Values.getFrequencyIncome_y()+"만"+Values.getFrequencyIncome2_y()+"천원");
         showComplexIncome.setText(""+Values.getNonFrequencyIncome()+"만"+Values.getNonFrequencyIncome2()+"천원");
 

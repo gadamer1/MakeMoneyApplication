@@ -6,7 +6,7 @@ public class ListViewItem implements Serializable {
     private int cost;
     private int cost2;
     private String memo;
-
+    private String tag;
     public String getMemo() {
         return memo;
     }
@@ -17,6 +17,14 @@ public class ListViewItem implements Serializable {
 
     public int getCost2() {
         return cost2;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public void setCost2(int cost2) {

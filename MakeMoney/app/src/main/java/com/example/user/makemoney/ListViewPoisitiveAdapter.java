@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class ListViewPoisitiveAdapter extends BaseAdapter implements Serializable {
     private static ArrayList<ListViewItem> listViewItems ;
 
-
     public ListViewPoisitiveAdapter(){
         listViewItems = new ArrayList<ListViewItem>();
     }
@@ -31,6 +30,14 @@ public class ListViewPoisitiveAdapter extends BaseAdapter implements Serializabl
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    public static ArrayList<ListViewItem> getListViewItems() {
+        return listViewItems;
+    }
+
+    public static void setListViewItems(ArrayList<ListViewItem> listViewItems) {
+        ListViewPoisitiveAdapter.listViewItems = listViewItems;
     }
 
     @Override
@@ -52,6 +59,7 @@ public class ListViewPoisitiveAdapter extends BaseAdapter implements Serializabl
         //아이템 내 각 위젯에 데이터 반영
         costText.setText(""+listViewItem.getCost());
         costText2.setText(""+listViewItem.getCost2());
+
         memo.setText(listViewItem.getMemo());
         return convertView;
     }
@@ -63,6 +71,10 @@ public class ListViewPoisitiveAdapter extends BaseAdapter implements Serializabl
         item.setCost2(cost2);
         item.setMemo(memo);
         listViewItems.add(item);
+    }
+
+    public void remove(int pos){
+        this.listViewItems.remove(pos);
     }
 
 }

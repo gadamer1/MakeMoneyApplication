@@ -31,8 +31,7 @@ public class MakePositiveActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               Spinner spinner1 = (Spinner) parent;
-               memo= (String) spinner1.getItemAtPosition(position);
+               memo= parent.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -60,13 +59,15 @@ public class MakePositiveActivity extends AppCompatActivity {
                     intent1.putExtra("a", listViewPoisitiveAdapter);
                     Values.setPlusMoney(Integer.parseInt(costText.getText().toString())
                                              ,Integer.parseInt(costText2.getText().toString()));
-                    if(memo=="정기(월)") {
+                    if(memo.equals("정기(월)")) {
                         Values.setFrequencyIncome_m(Integer.parseInt(costText.getText().toString()), Integer.parseInt(costText2.getText().toString()));
-                    }else if(memo=="정기(년)") {
+                    }else if(memo.equals("정기(년)")) {
                         Values.setFrequencyIncome_y(Integer.parseInt(costText.getText().toString()), Integer.parseInt(costText2.getText().toString()));
                     }
-                    else if(memo =="비정기"){
+                    else if(memo.equals("비정기")){
                         Values.setNonFrequencyIncome(Integer.parseInt(costText.getText().toString()),Integer.parseInt(costText2.getText().toString()));
+                    } else if(memo.equals("기본수입")){
+                        Values.setShowMyIncome(Integer.parseInt(costText.getText().toString()),Integer.parseInt(costText2.getText().toString()));
                     }
                     setResult(RESULT_OK, intent1);
                     finish();

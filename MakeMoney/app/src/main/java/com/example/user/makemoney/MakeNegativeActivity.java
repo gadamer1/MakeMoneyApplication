@@ -64,15 +64,18 @@ public class MakeNegativeActivity extends AppCompatActivity {
                     setResult(RESULT_OK, intent1);
                     Values.setMinusMoney(Integer.parseInt(costText.getText().toString())
                            , Integer.parseInt(costText2.getText().toString()));
-                    if(memo=="식사"){
+                    if(memo.equals("식사")){
                         Values.setEat(Integer.parseInt(costText.getText().toString()),Integer.parseInt(costText2.getText().toString()));
-                    }else if(memo == "의류"){
+                    }else if(memo.equals("의류")){
                         Values.setClothes(Integer.parseInt(costText.getText().toString()),Integer.parseInt(costText2.getText().toString()));
-                    }else if (memo =="디저트"){
+                    }else if (memo.equals("디저트")){
                         Values.setDessert(Integer.parseInt(costText.getText().toString()),Integer.parseInt(costText2.getText().toString()));
-
-                    }else if (memo=="기본지출(보험비등)"){
+                    }else if (memo.equals("기본지출(보험비등)")){
                         Values.setEtc(Integer.parseInt(costText.getText().toString()),Integer.parseInt(costText2.getText().toString()));
+                    }else if (memo.equals("주거비")){
+                        Values.setHousing_expenses(Integer.parseInt(costText.getText().toString()),Integer.parseInt(costText2.getText().toString()));
+                    }else if (memo.equals("기타생활비")){
+                        Values.setEtc_living_expenses(Integer.parseInt(costText.getText().toString()),Integer.parseInt(costText2.getText().toString()));
                     }
                     finish();
                 }

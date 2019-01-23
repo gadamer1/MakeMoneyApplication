@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="p_spinner">
+        <item>기본수입</item>
         <item>정기(월)</item>
         <item>정기(년)</item>
         <item>비정기</item>
@@ -11,5 +12,7 @@
         <item>의류</item>
         <item>디저트</item>
         <item>기본지출(보험비등)</item>
+        <item>주거비</item>
+        <item>기타생활비</item>
     </string-array>
 </resources>

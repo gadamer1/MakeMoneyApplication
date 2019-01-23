@@ -35,6 +35,14 @@ public class ListViewNegativeAdapter extends BaseAdapter implements Serializable
         return position;
     }
 
+    public static ArrayList<ListViewItem> getListViewItems() {
+        return listViewItems;
+    }
+
+    public static void setListViewItems(ArrayList<ListViewItem> listViewItems) {
+        ListViewNegativeAdapter.listViewItems = listViewItems;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final int pos = position;
@@ -54,6 +62,7 @@ public class ListViewNegativeAdapter extends BaseAdapter implements Serializable
         costText1.setText(""+listViewItem.getCost());
         costTex2.setText(""+listViewItem.getCost2());
         memo.setText(listViewItem.getMemo());
+
         return convertView;
     }
 
@@ -64,6 +73,9 @@ public class ListViewNegativeAdapter extends BaseAdapter implements Serializable
         item.setCost2(cost2);
         item.setMemo(memo);
         listViewItems.add(item);
+    }
+    public void remove(int pos){
+        this.listViewItems.remove(pos);
     }
 
 }
