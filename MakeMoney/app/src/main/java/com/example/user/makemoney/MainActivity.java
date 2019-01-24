@@ -1,5 +1,6 @@
 package com.example.user.makemoney;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -90,8 +91,13 @@ public class MainActivity extends AppCompatActivity {
                                     Values.setNonFrequencyIncome(-ListViewPoisitiveAdapter.getListViewItems().get(position).getCost(),
                                             -ListViewPoisitiveAdapter.getListViewItems().get(position).getCost2());
                                 }
-                                listViewNegativeAdapter.remove(position);
-                                listViewNegativeAdapter.notifyDataSetChanged();
+                                listViewPoisitiveAdapter.remove(position);
+                                listViewPoisitiveAdapter.notifyDataSetChanged();
+                                positiveListView.setAdapter(listViewPoisitiveAdapter);
+                                mySaveMoney.setText("총수익:"+ Values.getPlusMoney() + "만" + Values.plusMoney2 + "천원");
+                                showMyMoney= Values.getPlusMoney()-Values.getMinusMoney();
+                                goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만");
+
                             }
                         })
                         .setNegativeButton("아니요", new DialogInterface.OnClickListener() {
@@ -148,6 +154,12 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 listViewNegativeAdapter.remove(position);
                                 listViewNegativeAdapter.notifyDataSetChanged();
+                                negativeListView.setAdapter(listViewNegativeAdapter);
+                                myPayMoney.setText("총소비:"+"-"+Values.getMinusMoney()+"만"+Values.minusMoney2+"천원");
+                                showMyMoney= Values.getPlusMoney()-Values.getMinusMoney();
+                                goalMoney.setText("목표:"+Values.getGoalMoney()+"만 모은돈:" + showMyMoney + "만");
+
+
                             }
                         })
                         .setNegativeButton("아니요", new DialogInterface.OnClickListener() {

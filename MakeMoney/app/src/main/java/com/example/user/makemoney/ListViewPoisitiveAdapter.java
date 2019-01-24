@@ -75,6 +75,7 @@ public class ListViewPoisitiveAdapter extends BaseAdapter implements Serializabl
 
     public void remove(int pos){
         this.listViewItems.remove(pos);
+        notifyDataSetChanged();
     }
 
 }
